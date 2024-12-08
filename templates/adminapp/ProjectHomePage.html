@@ -1,0 +1,241 @@
+{% extends 'Navbar/ProjectNavbar.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Training</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #4CAF50, #81C784);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .heading {
+            text-align: center;
+            padding: 20px;
+            margin: 20px auto;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #d9fdd3;
+            border-radius: 8px;
+            max-width: 800px;
+        }
+
+        .course-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+        .course-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .course {
+            width: 22%;
+            margin: 10px;
+            padding: 15px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .course img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .course-section {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .course-button {
+            display: inline-block;
+            padding: 10px 15px;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .course-button:hover {
+            background-color: #388E3C;
+        }
+
+        /* Chatbot styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chatbot-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            font-weight: bold;
+        }
+
+        .chatbot-messages {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .chatbot-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        .chatbot-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 0 0 0 10px;
+        }
+
+        .chatbot-input button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Employee Training Portal</div>
+
+    <div class="heading">WELCOME TO EMPLOYEE TRAINING ONLINE INSTITUTION</div>
+
+    <div class="course-container">
+        <h2>Available Courses</h2>
+        <div class="course-wrapper">
+            <!-- Example Course 1 -->
+            <div class="course">
+                <img src="{% static 'images/aoop.jpg' %}" alt="Advanced OOP">
+                <p class="course-title">Advanced Object-Oriented Programming</p>
+                <p class="course-section">Course ID: AOOP</p>
+                <a href="#" class="course-button">Enroll Now</a>
+            </div>
+
+            <!-- Example Course 2 -->
+            <div class="course">
+                <img src="{% static 'images/pfsd.jpg' %}" alt="PFSD">
+                <p class="course-title">Python Full Stack Development</p>
+                <p class="course-section">Course ID: PFSD</p>
+                <a href="#" class="course-button">Enroll Now</a>
+            </div>
+
+            <!-- Example Course 3 -->
+            <div class="course">
+                <img src="{% static 'images/course3.jpg' %}" alt="Course 3">
+                <p class="course-title">Data Science Essentials</p>
+                <p class="course-section">Course ID: DSE</p>
+                <a href="#" class="course-button">Enroll Now</a>
+            </div>
+
+            <!-- Example Course 4 -->
+            <div class="course">
+                <img src="{% static 'images/course4.jpg' %}" alt="Course 4">
+                <p class="course-title">Web Development Basics</p>
+                <p class="course-section">Course ID: WDB</p>
+                <a href="#" class="course-button">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-header">Chat with us!</div>
+        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('chatbot-input');
+            const messages = document.getElementById('chatbot-messages');
+            const message = input.value;
+
+            if (message.trim() === '') return;
+
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.textContent = 'You: ' + message;
+            messages.appendChild(userMessage);
+
+            // Clear input
+            input.value = '';
+
+            // Simulate bot response
+            setTimeout(() => {
+                const botMessage = document.createElement('div');
+                botMessage.textContent = 'Bot: ' + getBotResponse(message);
+                messages.appendChild(botMessage);
+                messages.scrollTop = messages.scrollHeight; // Scroll to bottom
+            }, 1000);
+        }
+
+        function getBotResponse(message) {
+            const responses = {
+                hello: 'Hello! How can I assist you?',
+                courses: 'We have several courses available. Which one are you interested in?',
+                enroll: 'Click the "Enroll Now" button on the course you like.',
+                default: 'Sorry, I didn\'t understand that. Can you rephrase?'
+            };
+
+            message = message.toLowerCase();
+            return responses[message] || responses.default;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'Navbar/ProjectNavbar.html' %}
+{% block body %}
+    <h2>Add Contact</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <label for="recipient_email">Send to Email:</label>
+        <input type="email" name="recipient_email" placeholder="Enter email to notify" required>
+
+        <button type="submit">Add Contact</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9; /* Light green background */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* Ensure a fixed width */
+            border: 2px solid #c8e6c9; /* Subtle green border */
+            display: flex;
+            flex-direction: column; /* Force column layout */
+            gap: 15px; /* Space between items */
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            color: #388e3c; /* Dark green */
+        }
+        .login-container label {
+            font-weight: bold;
+            color: #2e7d32; /* Medium green */
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #a5d6a7; /* Light green border */
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #f1f8e9; /* Very light green */
+        }
+        .login-container button {
+            padding: 12px;
+            background: linear-gradient(45deg, #66bb6a, #81c784); /* Green gradient */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        .login-container button:hover {
+            background: linear-gradient(45deg, #81c784, #66bb6a); /* Reverse gradient */
+        }
+        .login-container button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="login-container">
+            <form action="{% url 'UserLoginLogic' %}" method="post">
+                {% csrf_token %}
+                <h2>Login</h2>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
